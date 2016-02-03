@@ -1,0 +1,6 @@
+.dockerignore
+.editorconfig
+.git*
+node_modules
+Makefile
+README.md
