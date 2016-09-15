@@ -2,24 +2,22 @@ var sendStatus = process.env.SENDSTATUS || 200,
   port = process.env.PORT || 8080,
   express = require('express'),
   bodyParser = require('body-parser'),
+  bunyan = require('express-bunyan-logger'),
   util = require('util');
+
+var expressLoggerConfig = {
+  name: 'echo',
+  excludes: ['ip', 'incoming', 'res', 'res-headers', 'response-hrtime', 'short-body'],
+  format: ":method :url :user-agent[family] :user-agent[os] :status-code",
+  immediate: false,
+  genReqId: false
+};
 
 var app = express();
 app.use(bodyParser.text());
+app.use(bunyan(expressLoggerConfig));
 
 app.all('*',function(req,res){
-  var logentry = {
-    url: req.url,
-    method: req.method,
-    query: req.query,
-    headers: req.headers,
-    body: req.body
-  }
-
-  var logstring = JSON.stringify(util.inspect(logentry, false, null)).replace(/\\n/g, "");
-
-  console.log(logstring);
-
   res.sendStatus(sendStatus);
 });
 
