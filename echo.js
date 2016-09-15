@@ -1,12 +1,14 @@
-var express = require('express'),
-    bodyParser = require('body-parser'),
-    util = require('util');
+var sendStatus = process.env.SENDSTATUS || 200,
+  port = process.env.PORT || 8080,
+  express = require('express'),
+  bodyParser = require('body-parser'),
+  util = require('util');
 
 var app = express();
 app.use(bodyParser.text());
 
 app.all('*',function(req,res){
-  logentry = {
+  var logentry = {
     url: req.url,
     method: req.method,
     query: req.query,
@@ -14,9 +16,11 @@ app.all('*',function(req,res){
     body: req.body
   }
 
-  console.log(util.inspect(logentry, false, null));
+  var logstring = JSON.stringify(util.inspect(logentry, false, null)).replace(/\\n/g, "");
 
-  res.sendStatus(200);
+  console.log(logstring);
+
+  res.sendStatus(sendStatus);
 });
 
-app.listen(8080);
+app.listen(port);
