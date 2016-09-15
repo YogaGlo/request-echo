@@ -7,9 +7,8 @@ var sendStatus = process.env.SENDSTATUS || 200,
 
 var expressLoggerConfig = {
   name: 'echo',
-  excludes: ['ip', 'incoming', 'res', 'res-headers', 'response-hrtime', 'short-body'],
+  excludes: ['ip', 'incoming', 'res', 'res-headers', 'response-hrtime', 'short-body', 'immediate', 'genReqId', 'remote-address'],
   format: ":method :url :user-agent[family] :user-agent[os] :status-code",
-  immediate: false,
   genReqId: false
 };
 
