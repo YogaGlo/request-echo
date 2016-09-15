@@ -1,5 +1,5 @@
-FROM mhart/alpine-node:0.12.9
-MAINTAINER Eugene Brodsky <eugene@bravoactual.io>
+FROM quay.io/yogaglo/alpine-node:stable
+MAINTAINER YogaGlo DevOps <ops@yogaglo.com>
 
 RUN apk add --update \
   vim \

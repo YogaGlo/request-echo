@@ -1,7 +1,7 @@
 ### DRY THIS LATER - should be a global makefile of some sort ###
 
 CONTAINER_NAME=$(shell basename $(shell pwd))
-DOCKER_NAMESPACE=${DOCKER_REGISTRY}/yogaglo
+DOCKER_NAMESPACE=quay.io/yogaglo
 IMAGE_NAME=$(shell basename $(shell pwd))
 ### uncomment this line to set TAG to the current branch's name by default
 #TAG=$(shell git rev-parse --abbrev-ref HEAD)
@@ -61,9 +61,11 @@ endef
 # Launch a Docker container with a *mounted* copy of the service.
 run: clean
 	@docker run -d \
+		-p 8080:8080 \
 		-v $(shell pwd)/:/opt/echo \
 	${CONFIG} --name ${CONTAINER_NAME} ${DOCKER_NAMESPACE}/${IMAGE_NAME}:${TAG}
 # Launch a Docker container with a baked-in copy of the service
 run-baked: clean
+	-p 8080:8080 \
 	@docker run -d \
 	${CONFIG}	--name ${CONTAINER_NAME} ${DOCKER_NAMESPACE}/${IMAGE_NAME}:${TAG}
