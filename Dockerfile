@@ -1,5 +1,4 @@
-FROM quay.io/yogaglo/alpine-node:stable
-MAINTAINER YogaGlo DevOps <ops@yogaglo.com>
+FROM node:10.15-alpine
 
 RUN apk add --update \
   vim \
